@@ -2,7 +2,6 @@ server:
   port: 5432
 
 spring:
-
   datasource:
     username: postgres
     url: jdbc:postgresql://localhost:5432/benjartine_db

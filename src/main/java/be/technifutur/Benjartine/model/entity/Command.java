@@ -5,21 +5,27 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
-public class Sandwich {
+public class Command {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sandwich_id")
+    @Column(name = "command_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "command_date", nullable = false)
+    private LocalDateTime commandDate;
+
+    @Column(name = "delivery_date")
+    private LocalDateTime deliveryDate;
 
     @Column(nullable = false)
-    private String desc;
+    private Boolean discount;
 
     @Column(nullable = false)
-    private Double price;
+    private Etat etat;
 }

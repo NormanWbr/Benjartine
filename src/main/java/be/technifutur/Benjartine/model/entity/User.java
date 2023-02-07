@@ -27,8 +27,17 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    private String firstName;
+
+    private String lastName;
+
+
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles = new LinkedHashSet<>();
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private Basket basket;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -56,4 +65,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+
 }

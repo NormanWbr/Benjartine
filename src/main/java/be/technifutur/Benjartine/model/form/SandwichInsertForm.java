@@ -12,7 +12,7 @@ public class SandwichInsertForm {
     private String nom;
 
     @NotNull
-    private String desc;
+    private String description;
 
     @NotNull
     @Positive
@@ -22,7 +22,7 @@ public class SandwichInsertForm {
         Sandwich sandwich = new Sandwich();
 
         sandwich.setName(this.nom);
-        sandwich.setDesc(this.desc);
+        sandwich.setDescription(this.description);
         sandwich.setPrice(this.prix);
 
         return sandwich;

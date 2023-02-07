@@ -1,7 +1,6 @@
 package be.technifutur.Benjartine.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,15 +9,16 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class Command {
+@Table(name = "\"order\"")
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "command_id")
+    @Column(name = "order_id")
     private Long id;
 
-    @Column(name = "command_date", nullable = false)
-    private LocalDateTime commandDate;
+    @Column(name = "order_date", nullable = false)
+    private LocalDateTime orderDate;
 
     @Column(name = "delivery_date")
     private LocalDateTime deliveryDate;

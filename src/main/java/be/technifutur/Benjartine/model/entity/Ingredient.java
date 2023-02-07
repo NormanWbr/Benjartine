@@ -1,8 +1,7 @@
 package be.technifutur.Benjartine.model.entity;
 
+
 import jakarta.persistence.*;
-import lombok.Cleanup;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

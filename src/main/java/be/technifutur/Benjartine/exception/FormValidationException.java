@@ -1,4 +1,4 @@
-package be.technifutur.Benjartine.service.impl;
+package be.technifutur.Benjartine.exception;
 
 public class FormValidationException extends RuntimeException {
     public FormValidationException(String message) {

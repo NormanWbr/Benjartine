@@ -13,4 +13,5 @@ public interface SandwichService {
 
     List<SandwichDTO> getAll();
 
+    List<SandwichDTO> getByDietName(String dietName);
 }

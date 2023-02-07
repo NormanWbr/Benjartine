@@ -1,13 +1,18 @@
 package be.technifutur.Benjartine.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "diets")
 public class Diet {
 
     @Id
@@ -18,5 +23,11 @@ public class Diet {
     @Column(nullable = false)
     private String name;
 
-    private String desc;
+    @Column
+    private String description;
+
+
+    @ManyToMany(mappedBy = "diets")
+    private Set<Sandwich> sandwiches = new LinkedHashSet<>();
+
 }

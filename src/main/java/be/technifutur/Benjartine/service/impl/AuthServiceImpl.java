@@ -1,5 +1,6 @@
 package be.technifutur.Benjartine.service.impl;
 
+import be.technifutur.Benjartine.exception.FormValidationException;
 import be.technifutur.Benjartine.jwt.JWTHolderDTO;
 import be.technifutur.Benjartine.jwt.JwtProvider;
 import be.technifutur.Benjartine.model.entity.User;

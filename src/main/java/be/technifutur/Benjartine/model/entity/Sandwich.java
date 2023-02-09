@@ -38,4 +38,7 @@ public class Sandwich {
     @ManyToMany(mappedBy = "sandwiches")
     private Set<Basket> baskets = new LinkedHashSet<>();
 
+    @ManyToMany(mappedBy = "sandwiches")
+    private Set<Order> orders = new LinkedHashSet<>();
+
 }

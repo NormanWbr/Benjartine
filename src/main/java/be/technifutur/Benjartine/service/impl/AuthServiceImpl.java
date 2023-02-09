@@ -6,6 +6,7 @@ import be.technifutur.Benjartine.jwt.JwtProvider;
 import be.technifutur.Benjartine.model.entity.User;
 import be.technifutur.Benjartine.model.form.LoginForm;
 import be.technifutur.Benjartine.model.form.RegistrationForm;
+import be.technifutur.Benjartine.repository.BasketRepository;
 import be.technifutur.Benjartine.repository.UserRepository;
 import be.technifutur.Benjartine.service.AuthService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,17 +22,19 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder encoder;
     private final AuthenticationManager authManager;
     private final JwtProvider jwtProvider;
+    private final BasketRepository basketRepository;
 
     public AuthServiceImpl(
             UserRepository userRepository,
             PasswordEncoder encoder,
             AuthenticationManager authManager,
-            JwtProvider jwtProvider
-    ) {
+            JwtProvider jwtProvider,
+            BasketRepository basketRepository) {
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.authManager = authManager;
         this.jwtProvider = jwtProvider;
+        this.basketRepository = basketRepository;
     }
 
     @Override
@@ -41,7 +44,10 @@ public class AuthServiceImpl implements AuthService {
             throw new FormValidationException("Nom d'utilisateur indisponible");
 
         User user = form.toEntity();
+
         user.setPassword( encoder.encode(user.getPassword()) );
+
+        basketRepository.save( user.getBasket() );
 
         userRepository.save( user );
 
@@ -58,6 +64,10 @@ public class AuthServiceImpl implements AuthService {
         auth = authManager.authenticate( auth );
 
         String token = jwtProvider.createToken( auth );
+
+        System.out.println("***********************************************");
+        System.out.println(token);
+        System.out.println("***********************************************");
 
         return new JWTHolderDTO( token );
 

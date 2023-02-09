@@ -39,6 +39,9 @@ public class User implements UserDetails {
     @JoinColumn(name = "user_id")
     private Basket basket;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private Set<Order> orders = new LinkedHashSet<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()

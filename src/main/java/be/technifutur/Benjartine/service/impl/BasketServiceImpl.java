@@ -1,14 +1,12 @@
 package be.technifutur.Benjartine.service.impl;
 
-import be.technifutur.Benjartine.exception.RessourceNotFoundException;
+import be.technifutur.Benjartine.model.dto.SandwichDTO;
 import be.technifutur.Benjartine.model.entity.Basket;
 import be.technifutur.Benjartine.model.entity.Sandwich;
-import be.technifutur.Benjartine.model.entity.User;
 import be.technifutur.Benjartine.repository.BasketRepository;
 import be.technifutur.Benjartine.repository.SandwichRepository;
 import be.technifutur.Benjartine.repository.UserRepository;
 import be.technifutur.Benjartine.service.BasketService;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,27 +28,56 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public void addSandwichToBasket(long id, String username) {
+    public void addSandwichToBasket(long id, String auth) {
 
+        Long userId = userRepository.findByUsername(auth).get().getId();
 
-        Sandwich sandwich = sandwichRepository.findById(id)
-                .orElseThrow(() -> new RessourceNotFoundException());
+        List list = basketRepository.findById(userId).get().getSandwiches();
 
-        List<Sandwich> list = new ArrayList<>();
+        list.add(sandwichRepository.findById(id).get());
 
-        list.add(sandwich);
-
-        Basket basket = basketRepository.findByUsername(username);
-
-        if (basket == null) {
-            basket = new Basket();
-            basket.setUser(userRepository.findByUsername(username)
-                    .orElseThrow(() -> new RessourceNotFoundException()));
-        }
+        Basket basket = basketRepository.findById(userId).get();
 
         basket.setSandwiches(list);
 
         basketRepository.save(basket);
 
+    }
+
+    @Override
+    public void removeSandwichToBasket(long id, String auth) {
+        Long userId = userRepository.findByUsername(auth).get().getId();
+
+        List list = basketRepository.findById(userId).get().getSandwiches();
+
+        list.remove(sandwichRepository.findById(id).get());
+
+        Basket basket = basketRepository.findById(userId).get();
+
+        basket.setSandwiches(list);
+
+        basketRepository.save(basket);
+    }
+
+    @Override
+    public List<SandwichDTO> getBasket(String auth) {
+
+        Long userId = userRepository.findByUsername(auth).get().getId();
+
+        List<Sandwich> list = basketRepository.findById(userId).get().getSandwiches();
+
+        return list.stream().map(SandwichDTO::from).toList();
+
+    }
+
+    @Override
+    public void clearBasket(String principal) {
+        Long userId = userRepository.findByUsername(principal).get().getId();
+
+        Basket basket = basketRepository.findById(userId).get();
+
+        basket.setSandwiches(new ArrayList<>());
+
+        basketRepository.save(basket);
     }
 }

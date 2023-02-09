@@ -32,6 +32,10 @@ public class SecurityConfig {
         http.addFilterBefore( jwtFilter, UsernamePasswordAuthenticationFilter.class );
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.authorizeHttpRequests( (authorize) -> {
+            authorize
+                    .anyRequest().permitAll();
+        });
 
         return http.build();
     }

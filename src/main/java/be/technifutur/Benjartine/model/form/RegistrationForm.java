@@ -1,5 +1,6 @@
 package be.technifutur.Benjartine.model.form;
 
+import be.technifutur.Benjartine.model.entity.Basket;
 import be.technifutur.Benjartine.model.entity.User;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -14,13 +15,13 @@ public class RegistrationForm {
     @Size(min = 4)
     private String password;
 
-    public User toEntity(){
-
+    public User toEntity() {
+        Basket basket = new Basket();
         User user = new User();
-
-        user.setUsername( this.username );
-        user.setPassword( this.password );
-
+        user.setBasket(basket);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.getRoles().add("USER");
         return user;
 
     }

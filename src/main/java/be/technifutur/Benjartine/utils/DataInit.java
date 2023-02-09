@@ -2,8 +2,12 @@ package be.technifutur.Benjartine.utils;
 
 import be.technifutur.Benjartine.model.entity.Diet;
 import be.technifutur.Benjartine.model.entity.Sandwich;
+import be.technifutur.Benjartine.model.form.LoginForm;
+import be.technifutur.Benjartine.model.form.RegistrationForm;
 import be.technifutur.Benjartine.repository.DietRepository;
 import be.technifutur.Benjartine.repository.SandwichRepository;
+import be.technifutur.Benjartine.repository.UserRepository;
+import be.technifutur.Benjartine.service.AuthService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +15,13 @@ import java.util.Set;
 
 @Component
 public class DataInit implements InitializingBean {
+
+    private final AuthService authService;
     private final SandwichRepository sandwichRepository;
     private final DietRepository dietRepository;
 
-    public DataInit(SandwichRepository sandwichRepository, DietRepository dietRepository) {
+    public DataInit(AuthService authService, SandwichRepository sandwichRepository, DietRepository dietRepository, UserRepository userRepository) {
+        this.authService = authService;
         this.sandwichRepository = sandwichRepository;
         this.dietRepository = dietRepository;
     }
@@ -67,6 +74,20 @@ public class DataInit implements InitializingBean {
         sandwich.setDiets(Set.of(vegetarien));
 
         sandwichRepository.save(sandwich);
+
+        RegistrationForm registrationForm = new RegistrationForm();
+
+        registrationForm.setUsername("admin");
+        registrationForm.setPassword("pass");
+
+        authService.register(registrationForm);
+
+        LoginForm loginForm = new LoginForm();
+
+        loginForm.setUsername("admin");
+        loginForm.setPassword("pass");
+
+        authService.login(loginForm);
 
     }
 }

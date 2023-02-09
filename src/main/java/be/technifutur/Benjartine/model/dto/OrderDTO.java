@@ -20,6 +20,8 @@ public class OrderDTO {
 
     private List<SandwichDTO> sandwichs;
 
+    private String user;
+
     public static OrderDTO from(Order entity) {
         return OrderDTO.builder()
                 .id(entity.getId())
@@ -28,6 +30,7 @@ public class OrderDTO {
                 .discount(entity.getDiscount())
                 .etat(entity.getEtat())
                 .sandwichs(entity.getSandwiches().stream().map(SandwichDTO::from).toList())
+                .user(entity.getUser().getUsername())
                 .build();
     }
 

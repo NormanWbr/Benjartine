@@ -1,6 +1,5 @@
 package be.technifutur.Benjartine.model.dto;
 
-import be.technifutur.Benjartine.model.entity.Diet;
 import be.technifutur.Benjartine.model.entity.Sandwich;
 import lombok.Builder;
 import lombok.Data;

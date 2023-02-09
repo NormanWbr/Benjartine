@@ -27,7 +27,12 @@ public class OrderController {
 
     @GetMapping()
     public List<OrderDTO> getAllByUser(Authentication auth) {
-        return orderService.getAllByUser((String) auth.getPrincipal());
+        return orderService.getAllByUser(auth);
+    }
+
+    @GetMapping("/all")
+    public List<OrderDTO> getAll() {
+        return orderService.getAll();
     }
 
 }

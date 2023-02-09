@@ -28,13 +28,15 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public void addSandwichToBasket(long id, String auth) {
+    public void addSandwichToBasket(long id, String auth, short quantity) {
 
         Long userId = userRepository.findByUsername(auth).get().getId();
 
         List list = basketRepository.findById(userId).get().getSandwiches();
 
-        list.add(sandwichRepository.findById(id).get());
+        for (int i = 0;i<quantity;i++){
+            list.add(sandwichRepository.findById(id).get());
+        }
 
         Basket basket = basketRepository.findById(userId).get();
 

@@ -39,7 +39,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "user_id")
     private Basket basket;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @OneToMany(mappedBy = "user")
     private Set<Order> orders = new LinkedHashSet<>();
 
     @Override

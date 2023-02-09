@@ -1,8 +1,9 @@
 package be.technifutur.Benjartine.controller;
 
 import be.technifutur.Benjartine.model.dto.SandwichDTO;
-import be.technifutur.Benjartine.model.entity.Sandwich;
 import be.technifutur.Benjartine.service.BasketService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class BasketController {
     }
 
     @PatchMapping("/add/{id:[0-9]+}")
-    public void addSandwichToBasket(@PathVariable long id, Authentication auth){
-        basketService.addSandwichToBasket(id,(String) auth.getPrincipal());
+    public void addSandwichToBasket(@PathVariable long id, Authentication auth,@RequestParam short quantity){
+        basketService.addSandwichToBasket(id,(String) auth.getPrincipal(), quantity);
     }
 
     @PatchMapping("/remove/{id:[0-9]+}")

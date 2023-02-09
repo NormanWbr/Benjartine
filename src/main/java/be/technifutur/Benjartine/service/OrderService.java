@@ -8,5 +8,7 @@ import java.util.List;
 public interface OrderService {
     void confirm(String auth);
 
-    List<OrderDTO> getAllByUser(String principal);
+    List<OrderDTO> getAllByUser(Authentication auth);
+
+    List<OrderDTO> getAll();
 }

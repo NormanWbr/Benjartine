@@ -1,13 +1,10 @@
 package be.technifutur.Benjartine.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -37,8 +34,5 @@ public class Sandwich {
 
     @ManyToMany(mappedBy = "sandwiches")
     private Set<Basket> baskets = new LinkedHashSet<>();
-
-    @ManyToMany(mappedBy = "sandwiches")
-    private Set<Order> orders = new LinkedHashSet<>();
 
 }

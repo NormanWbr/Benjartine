@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -31,14 +31,14 @@ public class Order {
     @Column(nullable = false)
     private Etat etat;
 
-    @ManyToMany
-    @JoinTable(name = "\"order\"_sandwiches",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "sandwich_id"))
-    private List<Sandwich> sandwiches = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToMany
+    @JoinTable(name = "order_sandwich",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "sandwich_id"))
+    private List<Sandwich> sandwiches = new LinkedList<>();
 
 }

@@ -11,4 +11,6 @@ public interface OrderService {
     List<OrderDTO> getAllByUser(Authentication auth);
 
     List<OrderDTO> getAll();
+
+    void setStatus(long id, String etat);
 }

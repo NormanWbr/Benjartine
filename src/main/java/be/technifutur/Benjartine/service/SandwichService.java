@@ -14,4 +14,10 @@ public interface SandwichService {
     List<SandwichDTO> getAll();
 
     List<SandwichDTO> getByDietName(String dietName);
+
+    void addSandwich(SandwichInsertForm sandwichInsertForm);
+
+    void updateSandwich(long id, SandwichInsertForm sandwichInsertForm);
+
+    void deleteSandwich(long id);
 }

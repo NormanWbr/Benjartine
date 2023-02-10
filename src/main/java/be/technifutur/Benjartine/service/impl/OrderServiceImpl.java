@@ -81,4 +81,15 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAll().stream().map(OrderDTO::from).toList();
     }
 
+    @Override
+    public void setStatus(long id, String statusToUpdate) {
+        Order order = orderRepository.findById(id).get();
+
+        System.out.println(statusToUpdate);
+
+        order.setEtat(Etat.valueOf(statusToUpdate));
+
+        orderRepository.save(order);
+    }
+
 }

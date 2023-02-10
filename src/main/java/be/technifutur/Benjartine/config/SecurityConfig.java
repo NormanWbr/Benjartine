@@ -33,8 +33,26 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeHttpRequests( (authorize) -> {
             authorize
+                    .requestMatchers("/sandwich/all").anonymous()
+                    .requestMatchers("/sandwich/{id:[0-9]+}").anonymous()
+                    .requestMatchers("/sandwich/add").hasRole("ADMIN")
+                    .requestMatchers("/sandwich/update/{id:[0-9]+}").hasRole("ADMIN")
+                    .requestMatchers("/sandwich/delete/{id:[0-9]+}").hasRole("ADMIN")
+                    .requestMatchers("/sandwich/diet/{dietName}").anonymous()
+                    .requestMatchers("/basket/add/{id:[0-9]+}").authenticated()
+                    .requestMatchers("/basket/remove/{id:[0-9]+}").authenticated()
+                    .requestMatchers("/basket").authenticated()
+                    .requestMatchers("/basket/clear").authenticated()
+                    .requestMatchers("/order/confirm").authenticated()
+                    .requestMatchers("/order").authenticated()
+                    .requestMatchers("/order/all").hasRole("ADMIN")
+                    .requestMatchers("/order/status/{id:[0-9]+}").hasRole("ADMIN")
                     .anyRequest().permitAll();
         });
+
+// .requestMatchers("/plane/all").anonymous()
+//                .requestMatchers("/plane/add").authenticated()
+//                .requestMatchers("/plane/{id:[0-9]+}/?pdate").hasRole("ADMIN")//.hasAuthority("ROLE_ADMIN")
 
         return http.build();
     }

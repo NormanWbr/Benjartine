@@ -3,10 +3,7 @@ package be.technifutur.Benjartine.controller;
 import be.technifutur.Benjartine.model.dto.OrderDTO;
 import be.technifutur.Benjartine.service.OrderService;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +30,11 @@ public class OrderController {
     @GetMapping("/all")
     public List<OrderDTO> getAll() {
         return orderService.getAll();
+    }
+
+    @PatchMapping("/status/{id:[0-9]+}")
+    public void validateOrder(@RequestBody String statusToUpdate, @PathVariable long id) {
+        orderService.setStatus(id, statusToUpdate);
     }
 
 }

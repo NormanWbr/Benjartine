@@ -48,18 +48,13 @@ public class OrderServiceImpl implements OrderService {
         if (listeSandwiches.isEmpty())
             throw new EmptyListException("Votre panier est vide");
 
-        LocalDateTime now = LocalDateTime.now();
-
         Order order = new Order();
 
-        order.setOrderDate(now);
+        order.setOrderDate(LocalDateTime.now());
         order.setUser(userRepository.findByUsername(auth).get());
-        order.setDeliveryDate(now.plusDays(5));
-        boolean discount = Math.random() < 0.000000001;
-        order.setDiscount(discount);
+        order.setDiscount(false);
         order.setEtat(Etat.WAITING);
         order.setSandwiches(listeSandwiches);
-        listeSandwiches.forEach(System.out::println);
 
         Set<Order> listOrder = user.getOrders();
         listOrder.add(order);
@@ -88,6 +83,11 @@ public class OrderServiceImpl implements OrderService {
         System.out.println(statusToUpdate);
 
         order.setEtat(Etat.valueOf(statusToUpdate));
+        if (statusToUpdate.equals("DELIVERED"))
+            order.setDeliveryDate(LocalDateTime.now());
+        else{
+            order.setDeliveryDate(null);
+        }
 
         orderRepository.save(order);
     }

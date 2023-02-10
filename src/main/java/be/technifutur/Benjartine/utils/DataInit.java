@@ -20,10 +20,13 @@ public class DataInit implements InitializingBean {
     private final SandwichRepository sandwichRepository;
     private final DietRepository dietRepository;
 
+    private final UserRepository userRepository;
+
     public DataInit(AuthService authService, SandwichRepository sandwichRepository, DietRepository dietRepository, UserRepository userRepository) {
         this.authService = authService;
         this.sandwichRepository = sandwichRepository;
         this.dietRepository = dietRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
